@@ -1,36 +1,44 @@
-# Anime Data - README
+# Anime Data Analysis Project
 
-## Scopo
-Fornire a fan e giornalisti accesso ai dati sugli anime tramite notebook Jupyter che eseguono pulizia, analisi e visualizzazioni dei dataset disponibili.
+## Project Goal
 
-## Struttura del progetto
-- `data/` — file CSV originali e risultati del preprocessing (es. `characters.csv`, `ratings.csv`, `profiles.csv`, ...)
-- `solution/cleaning/` — notebook di pulizia:
-  - `1_Dataset_Cleaning.ipynb`
-  - `2_Dataset_Cleaning.ipynb`
-  - `3_Dataset_Cleaning.ipynb`
-- `models/` — eventuali modelli salvati
-- `report/` — output di analisi e figure per il report
-- `requirements.txt` — dipendenze Python
+The main goal of this project is to provide a comprehensive dataset for anime fans and journalists. Through a series of Jupyter Notebooks, we will clean, analyze, and visualize data related to anime, characters, and voice actors to uncover insights and trends.
 
-## Requisiti
-- Python 3.8+ (Windows)
-- Installare dipendenze:
+## Project Structure
 
+The project is organized into the following directories:
 
-## Esecuzione dei notebook
-1. Aprire il progetto in PyCharm o avviare `jupyter notebook` / `jupyter lab`.
-2. Eseguire i notebook nell'ordine numerico:
-   - `solution/cleaning/1_Dataset_Cleaning.ipynb` (caricamento e pulizia iniziale)
-   - `solution/cleaning/2_Dataset_Cleaning.ipynb` (integrazione e normalizzazione)
-   - `solution/cleaning/3_Dataset_Cleaning.ipynb` (controlli finali e salvataggio)
-3. I notebook generano dataset puliti e visualizzazioni salvabili nelle cartelle `data/`, `report/` e `models/`.
+- `data/`: Contains the original, raw CSV files.
+- `cleaned_data/`: Contains the cleaned and preprocessed datasets, ready for analysis.
+- `solution/`: Contains the Jupyter Notebooks for the different project phases.
+  - `cleaning/`: Notebooks dedicated to data cleaning and preparation.
+  - `analysis/`: Notebooks for exploratory data analysis.
+  - `visualisation/`: Notebooks for data visualization.
+- `models/`: Directory for any machine learning models.
+- `report/`: Directory for project reports or summaries.
+- `README.md`: This file, providing an overview of the project.
 
-## Output atteso
-- Dataset puliti e coerenti per analisi successive
-- Visualizzazioni e statistiche riassuntive utilizzabili in articoli o report
-- (Opzionale) modelli predittivi salvati in `models/`
+## Data Cleaning
 
-## Note
-- Modificare i percorsi dei file nei notebook se si esegue da cartelle diverse.
-- Usare PyCharm 2025.2.5 o un ambiente Jupyter compatibile su Windows per eseguire i file `.ipynb`.
+The data cleaning process is detailed in the notebooks inside `solution/cleaning/`. The process for each dataset includes:
+1.  Loading the data from CSV files.
+2.  Inspecting the data structure and initial values.
+3.  Handling missing (`null`) values.
+4.  Identifying and removing duplicate entries.
+5.  Correcting data types and optimizing memory usage.
+6.  Saving the cleaned data into the `cleaned_data/` directory.
+
+The cleaning is split across multiple notebooks:
+- `1_Dataset_Cleaning.ipynb`: Cleans `favs`, `character_anime_works`, `character_nicknames`, and `characters`.
+- `2_Dataset_Cleaning.ipynb`: Cleans `details`, `person_alternate_names`, `person_anime_works`, and `person_details`.
+- `3_Dataset_Cleaning.ipynb`: Cleans `person_voice_works`, `profiles`, `ratings`, `recommendations`, and `stats`.
+
+## How to Run
+
+1.  Make sure you have Python and Jupyter Notebook installed.
+2.  Install the required libraries by running:
+    ```bash
+    pip install -r requirements.txt
+    ```
+3.  Open the Jupyter Notebooks in the `solution/` directory to explore the project. Start with the `cleaning` notebooks, then move to `analysis` and `visualisation`.
+
