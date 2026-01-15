@@ -12,7 +12,6 @@ def save_csv_file(df, file):
     if not os.path.exists('../../cleaned_data'):
         os.makedirs('../../cleaned_data')
 
-
     df.to_csv(file)
     print(f"DataFrame saved to {file}")
 

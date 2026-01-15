@@ -1,0 +1,44 @@
+- 15/01
+    -
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+DOMANDE PER L'ANALISI -->
+    GIORNALISTI:
+
+        - Evoluzione della qualità: Come sono cambiati i voti medi (Ratings.csv)
+        degli anime nel corso degli anni (collegando ai dati temporali degli anime)? C'è stato un "periodo d'oro"?
+
+        - Popolarità vs Qualità: C'è una correlazione tra il numero di utenti che ha completato una serie (Stats.csv)
+        e il voto medio assegnato? Ci sono anime "di nicchia" (voti altissimi ma pochi utenti)?
+
+        - Demografia: Come variano i voti in base all'età o al genere degli utenti indicati in Profiles.csv?
+
+    FAN:
+
+        - Network Analysis: Basandosi su Recommendations.csv (che contiene le raccomandazioni degli utenti),
+        quali anime sono spesso consigliati insieme? Se ti piace Naruto, cosa consiglia la community?
+
+        - Cluster di Utenti: È possibile raggruppare gli utenti (Profiles.csv e Favs.csv) in base ai gusti simili?
+
+
+    FAN E GIORNALISTI:
+
+        - Typecasting dei Doppiatori: Usando Person_anime_works.csv e Characters.csv, ci sono doppiatori che fanno
+        sempre lo stesso tipo di ruolo?
+
+        - Prolificità: Quali sono gli studi o i creatori (Person_details.csv, Person_anime_works.csv) con il
+        maggior numero di opere di successo (voti alti in Ratings.csv)?
+
+    TITOLI NEL TEMPO:
+
+        - Come sono variati i titoli degli anime con il passare degli anni?
+
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+
+TODO -->
+    - Fare la parte di analisi, suddivisa in journalist e user
+    - Fare i Grafici
+    - Relazione
