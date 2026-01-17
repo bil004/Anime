@@ -1,0 +1,28 @@
+import pandas as pd
+from dotenv import load_dotenv
+from sqlalchemy import create_engine
+import os
+
+
+# CONFIGURAZIONE
+db_config = {
+    'user': '',
+    'password': '',
+    'host': '',
+    'port': 0,
+    'database': ''
+}
+
+def load_config(path='.env'):
+    load_dotenv(path)
+    db_config['user'] = os.getenv('DB_USER')
+    db_config['password'] = os.getenv('DB_PASS')
+    db_config['host'] = os.getenv('DB_HOST')
+    db_config['port'] = os.getenv('DB_PORT')
+    db_config['database'] = os.getenv('DB_NAME')
+
+
+def create_db_engine(path='.env'):
+    load_config(path)
+    db_url = f"postgresql://{db_config['user']}:{db_config['password']}@{db_config['host']}:{db_config['port']}/{db_config['database']}"
+    return create_engine(db_url)

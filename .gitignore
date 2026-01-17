@@ -1,4 +1,6 @@
 .venv
 data
 cleaned_data
+analysed_data
 .idea
+.env

@@ -5,6 +5,6 @@ folium
 numpy
 matplotlib
 plotly
-
-# libreria per la lettura nel csv del file records.
-duckdb
+sqlalchemy
+psycopg2
+python-dotenv
