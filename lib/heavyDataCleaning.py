@@ -32,7 +32,7 @@ def process_heavy_data(input_path: str, output_path: str = None):
     if output_path:
         # Scrive su disco in formato Parquet (molto più compresso e veloce del CSV)
         rel_pulita.write_parquet(output_path, compression='snappy')
-        print(f"✅ Pulizia completata. File salvato in: {output_path}")
+        print(f"Pulizia completata. File salvato in: {output_path}")
         return None
     else:
         # Ritorna la relazione DuckDB per mostrarla nel notebook
