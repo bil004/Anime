@@ -5,6 +5,7 @@ folium
 numpy
 matplotlib
 plotly
+duckdb
 sqlalchemy
 psycopg2-binary
 python-dotenv
