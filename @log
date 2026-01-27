@@ -30,8 +30,6 @@ DOMANDE PER L'ANALISI -->
         - Prolificità: Quali sono gli studi o i creatori (Person_details.csv, Person_anime_works.csv) con il
         maggior numero di opere di successo (voti alti in Ratings.csv)?
 
-    TITOLI NEL TEMPO:
-
         - Come sono variati i titoli degli anime con il passare degli anni? ✅
 
 

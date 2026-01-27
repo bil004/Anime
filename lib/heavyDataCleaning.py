@@ -2,37 +2,39 @@ import duckdb
 
 
 def process_heavy_data(input_path: str, output_path: str = None):
-    """
-    Carica un file ratings CSV di grandi dimensioni (>4GB), pulisce i dati
-    usando la Relational API di DuckDB e (opzionalmente) salva in Parquet.
-    """
+    import duckdb
 
-    # 1. Lazy Loading: DuckDB "guarda" il file ma non lo carica in RAM
-    # scan_csv è simile a read_csv ma ottimizzato per dataset grandi
-    rel = duckdb.read_csv(input_path, header=True, auto_detect=True)
+    # Crea una connessione esplicita per settare i limiti
+    con = duckdb.connect()
 
-    # 2. Applicazione delle trasformazioni (Metodo B - Relational API)
-    # Replica di: ratings.dropna(subset=['username']) e drop_duplicates()
+    # LIMITA LA RAM: ad esempio a 4GB o 6GB per lasciare respiro al sistema
+    con.execute("SET memory_limit = '6GB';")
+    # Usa una cartella temporanea su disco per le operazioni pesanti (come il distinct)
+    con.execute("SET temp_directory = './tmp_duckdb';")
+
+    # 1. Caricamento Lazy
+    rel = con.from_csv_auto(input_path, header=True)
+
+    # 2. Ottimizzazione: Il .distinct() è davvero necessario?
+    # Spesso i dataset MyAnimeList sono già unici per coppia username-anime_id.
+    # Se devi proprio farlo, DuckDB ora userà il disco (temp_directory) invece di freezare la RAM.
 
     rel_pulita = rel.filter("username IS NOT NULL") \
         .distinct() \
         .project("""
-                        username,
-                        anime_id,
-                        status,
-                        score,
-                        CAST(is_rewatching AS TINYINT) as is_rewatching,
-                        num_watched_episodes
-                    """)
-
-    # Nota: .project serve a selezionare le colonne e fare cast al volo.
-    # CAST(is_rewatching AS TINYINT) è l'equivalente SQL di .astype('int8')
+            username,
+            anime_id,
+            status,
+            score,
+            CAST(is_rewatching AS TINYINT) as is_rewatching,
+            num_watched_episodes
+        """)
 
     # 3. Output
     if output_path:
-        # Scrive su disco in formato Parquet (molto più compresso e veloce del CSV)
         rel_pulita.write_parquet(output_path, compression='snappy')
-        print(f"Pulizia completata. File salvato in: {output_path}")
+        print(f"Pulizia completata: {output_path}")
+        con.close()
         return None
     else:
         # Ritorna la relazione DuckDB per mostrarla nel notebook

@@ -5,3 +5,4 @@ analysed_data
 .idea
 .env
 .ipynb_checkpoints
+details_temp.parquet
