@@ -6,4 +6,5 @@ analysed_data
 .env
 .ipynb_checkpoints
 details_temp.parquet
-.tmp
+solution/cleaning/.tmp
+solution/cleaning/tmp_duckdb
