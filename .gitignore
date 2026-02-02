@@ -1,10 +1,10 @@
 .venv
 data
 cleaned_data
-analysed_data
 .idea
 .env
 .ipynb_checkpoints
 details_temp.parquet
 solution/cleaning/.tmp
 solution/cleaning/tmp_duckdb
+solution/graphs
