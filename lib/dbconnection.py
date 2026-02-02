@@ -23,9 +23,6 @@ def load_config(path=BASE_DIR / '.env'):
     db_config['port'] = os.getenv('DB_PORT')
     db_config['database'] = os.getenv('DB_NAME')
 
-    # for key, value in db_config.items():
-    #     print(f"{key}: {value}")
-
 
 def create_db_engine(path=BASE_DIR / '.env'):
     load_config(path)
