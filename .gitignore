@@ -2,9 +2,10 @@
 data
 cleaned_data
 .idea
-.env
+#.env # Tolto per rendere semplice la creazione del db
 .ipynb_checkpoints
 details_temp.parquet
 solution/cleaning/.tmp
 solution/cleaning/tmp_duckdb
 solution/graphs
+solution/analysis/fans/*.png
