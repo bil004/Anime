@@ -55,7 +55,6 @@ def clean_studio_format(entry):
           value: "Bones"
     """
     try:
-        # Se è null o non è una stringa, lo ignoriamo
         if pd.isna(entry) or not isinstance(entry, str):
             return None
 
@@ -65,9 +64,8 @@ def clean_studio_format(entry):
 
         # Se la conversione ha successo ed è una lista non vuota
         if isinstance(lista_studi, list) and len(lista_studi) > 0:
-            return lista_studi[0]  # Restituisce il primo elemento
+            return lista_studi[0]
 
         return None
     except (ValueError, SyntaxError):
-        # Se c'è un errore di parsing, ritorna None
         return None
