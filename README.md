@@ -1,45 +1,45 @@
-# HCI - Progetto di Analisi Dati sugli Anime
+# HCI - Anime Data Analysis Project
 
-## Obiettivo del Progetto
+## Project Goal
 
-L'obiettivo principale di questo progetto è fornire un dataset completo per appassionati di anime e giornalisti. Attraverso una serie di Jupyter Notebook, puliremo, analizzeremo e visualizzeremo i dati relativi ad anime, personaggi e doppiatori per scoprire approfondimenti e tendenze.
+The main goal of this project is to provide a comprehensive dataset for anime enthusiasts and journalists. Through a series of Jupyter Notebooks, we will clean, analyze, and visualize data related to anime, characters, and voice actors to uncover insights and trends.
 
-## Struttura del Progetto
+## Project Structure
 
-Il progetto è organizzato nelle seguenti directory:
+The project is organized into the following directories:
 
-- `data/`: Contiene i file CSV originali e grezzi.
-- `cleaned_data/`: Contiene i dataset puliti e pre-elaborati, pronti per l'analisi.
-- `solution/`: Contiene i Jupyter Notebook per le diverse fasi del progetto.
-  - `cleaning/`: Notebook dedicati alla pulizia e preparazione dei dati.
-  - `analysis/`: Notebook per l'analisi esplorativa dei dati.
-  - `visualisation/`: Notebook per la visualizzazione dei dati.
-- `models/`: Directory per eventuali modelli di machine learning.
-- `report/`: Directory per report o riassunti del progetto.
-- `README.md`: Questo file, che fornisce una panoramica del progetto.
+- `data/`: Contains the original and raw CSV files.
+- `cleaned_data/`: Contains the cleaned and pre-processed datasets, ready for analysis.
+- `solution/`: Contains the Jupyter Notebooks for the different phases of the project.
+  - `cleaning/`: Notebooks dedicated to data cleaning and preparation.
+  - `analysis/`: Notebooks for exploratory data analysis.
+  - `visualisation/`: Notebooks for data visualization.
+- `models/`: Directory for any machine learning models.
+- `report/`: Directory for project reports or summaries.
+- `README.md`: This file, which provides an overview of the project.
 
-## Pulizia dei Dati
+## Data Cleaning
 
-Il processo di pulizia dei dati è dettagliato nei notebook all'interno di `solution/cleaning/`. Il processo per ogni dataset include:
-1.  Caricamento dei dati da un database PostGres.
-2.  Ispezione della struttura dei dati e dei valori iniziali.
-3.  Gestione dei valori mancanti (`null`).
-4.  Identificazione e rimozione delle voci duplicate.
-5.  Correzione dei tipi di dati e ottimizzazione dell'uso della memoria.
-6.  Salvataggio dei dati puliti nella directory `cleaned_data/` (`ratings_cleaned.parquet`).
+The data cleaning process is detailed in the notebooks inside `solution/cleaning/`. The process for each dataset includes:
+1.  Loading data from a PostgreSQL database.
+2.  Inspecting the data structure and initial values.
+3.  Handling missing (`null`) values.
+4.  Identifying and removing duplicate entries.
+5.  Correcting data types and optimizing memory usage.
+6.  Saving the cleaned data in the `cleaned_data/` directory (`ratings_cleaned.parquet`).
 
-La pulizia è suddivisa in più notebook:
-- `1_Dataset_Cleaning.ipynb`: Pulisce `favs`, `character_anime_works`, `character_nicknames` e `characters`.
-- `2_Dataset_Cleaning.ipynb`: Pulisce `details`, `person_alternate_names`, `person_anime_works` e `person_details`.
-- `3_Dataset_Cleaning.ipynb`: Pulisce `person_voice_works`, `profiles`, `recommendations` e `stats`.
-- `4_Dataset_Cleaning.ipynb`: Pulisce `ratings`.
+The cleaning is divided into multiple notebooks:
+- `1_Dataset_Cleaning.ipynb`: Cleans `favs`, `character_anime_works`, `character_nicknames`, and `characters`.
+- `2_Dataset_Cleaning.ipynb`: Cleans `details`, `person_alternate_names`, `person_anime_works`, and `person_details`.
+- `3_Dataset_Cleaning.ipynb`: Cleans `person_voice_works`, `profiles`, `recommendations`, and `stats`.
+- `4_Dataset_Cleaning.ipynb`: Cleans `ratings`.
 
-## Come Eseguire
+## How to Run
 
-1.  Assicurati di avere installato Python e Jupyter Notebook.
-2.  Assicurati di avere la connessione del database tramite postgres (obbligatorio) tramite il file `.env`.
-2.  Installa le librerie richieste eseguendo:
+1.  Make sure you have Python and Jupyter Notebook installed.
+2.  Ensure you have a database connection via PostgreSQL (mandatory) through the `.env` file.
+3.  Install the required libraries by running:
     ```bash
     pip install -r requirements.txt
     ```
-3.  Apri i Jupyter Notebook nella directory `solution/` per esplorare il progetto. Inizia con i notebook di `cleaning`, poi passa ad `analysis` e `visualisation`.
+4.  Open the Jupyter Notebooks in the `solution/` directory to explore the project. Start with the `cleaning` notebooks, then move on to `analysis` and `visualisation`.
