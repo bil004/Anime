@@ -5,18 +5,15 @@ import os
 
 """
 Module: dbconnection
-Summary: Database configuration and connection helpers.
-Description: Loads environment-based configuration and creates SQLAlchemy Engines for connecting to PostgreSQL.
+Database configuration and connection management.
 
-Swagger/OpenAPI:
-  tags:
-    - name: Database
-      description: Configuration and connection utilities for the database.
+Loads environment variables and creates SQLAlchemy Engine instances to establish
+connections to PostgreSQL databases within data analysis workflows.
 """
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# CONFIGURAZIONE
+# CONFIGURATION
 db_config = {
     'user': '',
     'password': '',
@@ -25,37 +22,19 @@ db_config = {
     'database': ''
 }
 
+
 def load_config(path=BASE_DIR / '.env'):
     """
-    Summary:
-        Load database configuration from a .env file into the global db_config dict.
-    Description:
-        Reads DB_USER, DB_PASS, DB_HOST, DB_PORT, DB_NAME from the provided .env path
-        and populates the db_config dictionary.
+    Loads database connection parameters from an environment file (.env).
+
+    Reads DB_USER, DB_PASS, DB_HOST, DB_PORT, and DB_NAME from the specified .env file
+    and populates the global `db_config` dictionary.
 
     Parameters:
-        path (Path | str): Path to the .env file (default: project root .env).
+        path (Path | str): Path to the .env file (default: project root).
 
     Returns:
         None
-
-    Swagger/OpenAPI:
-      operationId: loadDbConfig
-      tags:
-        - Database
-      parameters:
-        - name: path
-          in: query
-          required: false
-          schema:
-            type: string
-          description: Filesystem path to the .env file.
-      responses:
-        '204':
-          description: Configuration loaded (no content returned).
-      examples:
-        request:
-          path: "C:/project/.env"
     """
     load_dotenv(path)
     db_config['user'] = os.getenv('DB_USER')
@@ -67,38 +46,16 @@ def load_config(path=BASE_DIR / '.env'):
 
 def create_db_engine(path=BASE_DIR / '.env'):
     """
-    Summary:
-        Create a SQLAlchemy Engine for PostgreSQL using environment configuration.
-    Description:
-        Loads configuration via load_config, then builds a PostgreSQL connection URL
-        and returns a SQLAlchemy Engine instance.
+    Creates a SQLAlchemy Engine for connecting to PostgreSQL.
+
+    Initializes configuration settings via `load_config` and constructs the database
+    connection URI required for integration with pandas or other analysis tools.
 
     Parameters:
-        path (Path | str): Path to the .env file used to load config.
+        path (Path | str): Path to the .env file for loading configuration parameters.
 
     Returns:
-        sqlalchemy.Engine: A SQLAlchemy engine bound to the configured PostgreSQL database.
-
-    Swagger/OpenAPI:
-      operationId: createDbEngine
-      tags:
-        - Database
-      parameters:
-        - name: path
-          in: query
-          required: false
-          schema:
-            type: string
-          description: Filesystem path to the .env file.
-      responses:
-        '200':
-          description: Engine created successfully.
-          schema:
-            type: object
-            description: SQLAlchemy Engine (opaque).
-      examples:
-        request:
-          path: "C:/project/.env"
+        sqlalchemy.Engine: Ready-to-use SQLAlchemy Engine instance.
     """
     load_config(path)
     db_url = f"postgresql://{db_config['user']}:{db_config['password']}@{db_config['host']}:{db_config['port']}/{db_config['database']}"

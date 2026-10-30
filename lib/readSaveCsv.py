@@ -3,60 +3,23 @@ import pandas as pd
 
 """
 Module: readSaveCsv
-Summary: Helpers to import data from the database and save DataFrames back to tables.
-Description: Wraps common read/write operations using SQLAlchemy Engines and pandas.
+I/O utilities for loading and persisting datasets to SQL databases.
 
-Swagger/OpenAPI:
-  tags:
-    - name: I/O
-      description: Database read and write utilities using pandas and SQLAlchemy.
+Provides helper functions to read database tables directly into Pandas DataFrames
+and save processed data analysis results back into the database.
 """
 
 
 def import_data(engine: Engine, table: str):
     """
-    Summary:
-        Read the full contents of a database table into a pandas DataFrame.
-    Description:
-        Executes a SELECT * query against the given table using the provided SQLAlchemy Engine.
-        Returns a DataFrame or None if an error occurs.
+    Loads the full contents of a database table into a Pandas DataFrame.
 
     Parameters:
-        engine (sqlalchemy.Engine): A SQLAlchemy Engine instance.
-        table (str): The name of the table to read.
+        engine (sqlalchemy.Engine): SQLAlchemy Engine instance for database connection.
+        table (str): Target table name in the database.
 
     Returns:
-        pandas.DataFrame | None: DataFrame with table contents, or None on failure.
-
-    Swagger/OpenAPI:
-      operationId: importData
-      tags:
-        - I/O
-      parameters:
-        - name: engine
-          in: body
-          required: true
-          schema:
-            type: object
-            description: SQLAlchemy Engine (opaque).
-        - name: table
-          in: body
-          required: true
-          schema:
-            type: string
-          description: Target table name to read from.
-      responses:
-        '200':
-          description: Data loaded successfully.
-          schema:
-            type: array
-            items:
-              type: object
-        '500':
-          description: Database read error; returns null.
-      examples:
-        request:
-          table: "public.anime"
+        pandas.DataFrame | None: DataFrame containing table data, or None if an error occurs.
     """
     try:
         query = f"SELECT * FROM {table}"
@@ -70,55 +33,20 @@ def import_data(engine: Engine, table: str):
         return None
 
 
-def save_data(df, file, engine):
+def save_data(df: pd.DataFrame, file: str, engine: Engine):
     """
-    Summary:
-        Save a pandas DataFrame to a database table (replace if exists).
-    Description:
-        Uses pandas.to_sql with if_exists="replace" to upload the DataFrame to the specified table.
-        Returns None and prints a status message; logs errors on failure.
+    Writes a Pandas DataFrame to a database table.
+
+    Uses `to_sql` with overwrite mode (`if_exists="replace"`) to persist
+    cleaned or transformed data directly into the target database table.
 
     Parameters:
         df (pandas.DataFrame): The DataFrame to persist.
-        file (str): The destination table name.
-        engine (sqlalchemy.Engine): A SQLAlchemy Engine instance.
+        file (str): Destination table name in the database.
+        engine (sqlalchemy.Engine): SQLAlchemy Engine instance for database connection.
 
     Returns:
         None
-
-    Swagger/OpenAPI:
-      operationId: saveData
-      tags:
-        - I/O
-      parameters:
-        - name: df
-          in: body
-          required: true
-          schema:
-            type: array
-            items:
-              type: object
-          description: DataFrame rows to be stored.
-        - name: file
-          in: body
-          required: true
-          schema:
-            type: string
-          description: Destination table name.
-        - name: engine
-          in: body
-          required: true
-          schema:
-            type: object
-            description: SQLAlchemy Engine (opaque).
-      responses:
-        '204':
-          description: Data saved successfully (no content).
-        '500':
-          description: Database write error.
-      examples:
-        request:
-          file: "public.anime_clean"
     """
     try:
         df.to_sql(file, engine, if_exists="replace", index=False)
