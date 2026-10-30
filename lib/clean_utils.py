@@ -3,66 +3,36 @@ import pandas as pd
 
 """
 Module: clean_utils
-Summary: Utilities for cleaning and normalizing data fields.
-Description: Provides helper functions to sanitize and normalize raw string inputs,
-             making them easier to process downstream (ETL, analytics, model training).
+Utilities for data cleaning and normalization.
 
-Swagger/OpenAPI:
-  tags:
-    - name: Data Cleaning
-      description: Helpers to clean raw fields from datasets.
+Provides helper functions to sanitize and normalize raw string inputs,
+facilitating downstream exploratory data analysis (EDA), ETL pipelines, and modeling.
 """
 
 
 def clean_studio_format(entry):
     """
-    Summary:
-        Normalize a 'studios' field from string representations like "['Studio Name']" into a clean studio name.
-    Description:
-        Converts a string containing a Python list literal (e.g., "['Studio Name']") into a real list,
-        then returns the first studio name if available. Non-string or invalid inputs return None.
+    Extracts the primary production studio from a string representation of a list.
+
+    Normalizes string values like "['Studio Name']" by parsing them into actual
+    Python lists and returning the first available studio name. Useful for preprocessing
+    columns containing stringified data structures within DataFrames.
 
     Parameters:
-        entry (str | Any): The raw studios field, typically a stringified list.
+        entry (str | Any): Raw value from the studios field (e.g., "['Bones']").
 
     Returns:
-        str | None: The normalized studio name, or None if the input is invalid or empty.
-
-    Swagger/OpenAPI:
-      operationId: cleanStudioFormat
-      tags:
-        - Data Cleaning
-      parameters:
-        - name: entry
-          in: body
-          required: true
-          schema:
-            type: string
-            nullable: true
-          description: Raw studios value (stringified list; e.g., "['Studio Name']").
-      responses:
-        '200':
-          description: Successfully normalized studio name.
-          schema:
-            type: string
-            nullable: true
-        '400':
-          description: Invalid input format; returns null.
-      examples:
-        request:
-          entry: "['Bones']"
-        response:
-          value: "Bones"
+        str | None: Extracted studio name, or None if the input is invalid or empty.
     """
     try:
         if pd.isna(entry) or not isinstance(entry, str):
             return None
 
-        # Converte la stringa "['Nome']" in una lista vera ['Nome']
-        # ast.literal_eval è sicuro per valutare strutture dati da stringhe
+        # Convert the string "['Name']" into a real list ['Name']
+        # ast.literal_eval safely evaluates data structures from strings
         lista_studi = ast.literal_eval(entry)
 
-        # Se la conversione ha successo ed è una lista non vuota
+        # If conversion is successful and yields a non-empty list
         if isinstance(lista_studi, list) and len(lista_studi) > 0:
             return lista_studi[0]
 
